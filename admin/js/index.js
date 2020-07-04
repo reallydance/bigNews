@@ -7,8 +7,9 @@ $(function () {
         type: 'get',
         url: bigNew.user_info,
         success: function (res) {
+
             if (res.code == 200) {
-                $('user_info span').html(`欢迎&nbsp;&nbsp;${res.data.nickname}`);
+                $('.user_info span').html(`欢迎&nbsp;&nbsp;${res.data.nickname}`);
                 $('.user_info img').attr('src', res.data.userPic)
                 $('.header_bar img').attr('src', res.data.userPic)
             }
