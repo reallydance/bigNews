@@ -146,4 +146,9 @@ $(function () {
             }
         })
     })
+    //给发布文章按钮注册事件，实现点击按钮左侧导航栏高亮显示
+    $('#release_btn').on('click', function () {
+        console.log(123);
+        parent.$('.menu .level02>li:eq(1)').click();
+    })
 })
