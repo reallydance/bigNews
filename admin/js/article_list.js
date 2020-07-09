@@ -66,7 +66,7 @@ $(function () {
     //筛选功能
     //给筛选按钮注册事件
     $('#btnSearch').on('click', function (e) {
-        console.log($('#key').val());
+        //console.log($('#key').val());
         //阻止默认行为
         e.preventDefault();
         //发送ajax请求
@@ -81,16 +81,20 @@ $(function () {
                 perpage: 6
             },
             success(res) {
-                var htmlStr = template('articleTmp', res.data);
-                $('tbody').html(htmlStr);
-                // 改变页码显示
-                // 第1个参数是当总页码改变的时候
-                // 第2个参数是现在的总页码值
-                // 第3个参数是默认显示的页码值
-                if (res.data.totalCount == 0) {
-                    $('#pagination-demo').hide().siblings('#pagination').show();
-                } else {
-                    $('#pagination-demo').show().siblings('#pagination').hide();
+                if (res.code == 200) {
+                    var htmlStr = template('articleTmp', res.data);
+                    $('tbody').html(htmlStr);
+                    // 改变页码显示
+                    // 第1个参数是当总页码改变的时候
+                    // 第2个参数是现在的总页码值
+                    // 第3个参数是默认显示的页码值
+                    if (res.data.totalCount == 0) {
+                        $('#pagination-demo').hide().siblings('#pagination').show();
+                    } else {
+
+                        $('#pagination-demo').show().siblings('#pagination').hide();
+                        $('#pagination-demo').twbsPagination('changeTotalPages', res.data.totalPage, 1)
+                    }
                 }
             }
         })
@@ -133,7 +137,7 @@ $(function () {
                                 $('#pagination-demo').show().siblings('#pagination').hide();
                                 //如果当前页面响应回来的数据为0则代表当前页面中没有数据了，应该显示前一页的数据
                                 if (res.data.data.length == 0) {
-                                    currentPage -= 1;
+                                    currentPage--;
                                     $('#pagination-demo').twbsPagination('changeTotalPages', res.data.totalPage, currentPage);
                                     //第一个参数是当总页面改变的时候
                                     //第二个参数是当前总页面
